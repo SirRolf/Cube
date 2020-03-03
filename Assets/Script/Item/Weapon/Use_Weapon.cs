@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Data : MonoBehaviour
+public class Use_Weapon : MonoBehaviour
 {
+    [SerializeField]
+    private bool isMelee, isAutomatic;
+
     public void Use()
     {
 
