@@ -4,42 +4,59 @@ using UnityEngine;
 
 public class Equiped_Weapons : MonoBehaviour
 {
-    public List<GameObject> Weapons = new List<GameObject>();
+    public List<GameObject> weapons = new List<GameObject>();
 
     private int equipedSlot;
 
     void Start()
     {
-        if (Weapons[1] != null)
-        {
-            equipedSlot = 1;
-        }
-        else if (Weapons[2] != null)
-        {
-            equipedSlot = 2;
-        }
-        else if (Weapons[0] != null)
+        if (weapons[0] != null)
         {
             equipedSlot = 0;
+            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
+        }
+        else if (weapons[1] != null)
+        {
+            equipedSlot = 1;
+            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
+        }
+        else if (weapons[2] != null)
+        {
+            equipedSlot = 2;
+            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
         }
     }
 
     void Update()
     {
-        if (Weapons[equipedSlot] == null)
+        if (weapons[equipedSlot] == null)
         {
+            print("no Weapon equiped");
             return;
         }
-        Weapons[equipedSlot].GetComponent<Use_Weapon>().Use();
+        for (int i = 1; i < 4; i++)
+        {
+            if (Input.GetAxisRaw("SwitchWeapon" + i) > 0)
+            {
+                SwitchWeapon(i - 1);
+            }
+        }
+        weapons[equipedSlot].GetComponent<Use_Weapon>().Use();
     }
 
     public void ChangeWeapons(GameObject newWeapon, int slot)
     {
-        Weapons[slot] = newWeapon;
+        weapons[slot] = newWeapon;
     }
 
     public void SwitchWeapon(int slot)
     {
+        print("switching to slot " + slot);
+        if (weapons[slot] == null)
+        {
+            print("empty slot");
+            return;
+        }
         equipedSlot = slot;
         //start stuff like animations here
     }
