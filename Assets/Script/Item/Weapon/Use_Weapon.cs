@@ -51,5 +51,12 @@ public class Use_Weapon : MonoBehaviour
                 isAttackAxisInUse = false;
             }
         }
+        if (isMelee)
+        {
+            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+            {
+                //should move the item
+            }
+        }
     }
 }

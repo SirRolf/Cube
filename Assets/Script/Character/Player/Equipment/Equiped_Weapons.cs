@@ -36,7 +36,7 @@ public class Equiped_Weapons : MonoBehaviour
         }
         for (int i = 1; i < 4; i++)
         {
-            if (Input.GetAxisRaw("SwitchWeapon" + i) > 0)
+            if (Input.GetAxisRaw($"SwitchWeapon {i}") > 0)
             {
                 SwitchWeapon(i - 1);
             }
@@ -51,7 +51,7 @@ public class Equiped_Weapons : MonoBehaviour
 
     public void SwitchWeapon(int slot)
     {
-        print("switching to slot " + slot);
+        //print("switching to slot " + slot);
         if (weapons[slot] == null)
         {
             print("empty slot");
