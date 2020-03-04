@@ -5,13 +5,14 @@ using UnityEngine;
 public class Use_Weapon : MonoBehaviour
 {
     [SerializeField]
-    private bool isMelee, isFullyAutomatic;
+    private bool isMelee = false, isFullyAutomatic = false, isSemiAutomatic = false;
 
     [SerializeField]
     private float fireRate = 0;
 
-    private float fireInterval;
-    private float timeSinceLastShot;
+    private float fireInterval, timeSinceLastShot;
+
+    private bool isAttackAxisInUse = false;
 
     // this is just a normal bullet now but i will make it changable depending on what mag is inserted after a while
     [SerializeField]
@@ -26,10 +27,29 @@ public class Use_Weapon : MonoBehaviour
     public void Use()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+        if (isFullyAutomatic)
         {
-            Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
-            timeSinceLastShot = 0;
+            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+            {
+                Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
+                timeSinceLastShot = 0;
+            }
+        }
+        if (isSemiAutomatic)
+        {
+            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+            {
+                if (isAttackAxisInUse == false)
+                {
+                    Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
+                    timeSinceLastShot = 0;
+                    isAttackAxisInUse = true;
+                }
+            }
+            if (Input.GetAxisRaw("Attack") == 0)
+            {
+                isAttackAxisInUse = false;
+            }
         }
     }
 }
