@@ -53,9 +53,11 @@ public class Use_Weapon : MonoBehaviour
         }
         if (isMelee)
         {
-            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+            if (Input.GetAxisRaw("Attack") > 0)
             {
                 //should move the item
+                Quaternion angle = Quaternion.Euler(0f, 0f, -180f);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, fireRate * Time.fixedDeltaTime);
             }
         }
     }

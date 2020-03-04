@@ -10,20 +10,13 @@ public class Equiped_Weapons : MonoBehaviour
 
     void Start()
     {
-        if (weapons[0] != null)
+        for (int i = 0; i < weapons.Capacity; i++)
         {
-            equipedSlot = 0;
-            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
-        }
-        else if (weapons[1] != null)
-        {
-            equipedSlot = 1;
-            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
-        }
-        else if (weapons[2] != null)
-        {
-            equipedSlot = 2;
-            weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
+            if (weapons[i] != null)
+            {
+                equipedSlot = i;
+                weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
+            }
         }
     }
 
@@ -36,7 +29,7 @@ public class Equiped_Weapons : MonoBehaviour
         }
         for (int i = 1; i < 4; i++)
         {
-            if (Input.GetAxisRaw($"SwitchWeapon {i}") > 0)
+            if (Input.GetAxisRaw($"SwitchWeapon{i}") > 0)
             {
                 SwitchWeapon(i - 1);
             }
@@ -46,7 +39,9 @@ public class Equiped_Weapons : MonoBehaviour
 
     public void ChangeWeapons(GameObject newWeapon, int slot)
     {
-        weapons[slot] = newWeapon;
+        var instantiationWeapon = Instantiate(newWeapon, new Vector2(0,0), Quaternion.identity);
+        instantiationWeapon.transform.parent = gameObject.transform;
+        weapons[slot] = instantiationWeapon;
     }
 
     public void SwitchWeapon(int slot)
