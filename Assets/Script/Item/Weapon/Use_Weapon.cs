@@ -4,19 +4,37 @@ using UnityEngine;
 
 public class Use_Weapon : MonoBehaviour
 {
+    //changable values
+    [Header("Weapon Type")]
     [SerializeField]
-    private bool isMelee = false, isFullyAutomatic = false, isSemiAutomatic = false;
+    private bool isMelee = false;
+    [SerializeField]
+    private bool isFullyAutomatic = false;
+    [SerializeField]
+    private bool isSemiAutomatic = false;
 
+    [Header("Universal settings")]
     [SerializeField]
     private float fireRate = 0;
 
-    private float fireInterval, timeSinceLastShot;
+    [Header("Melee settings")]
+    [SerializeField]
+    public List<Quaternion> meleeTargetAngles = new List<Quaternion>();
 
-    private bool isAttackAxisInUse = false;
-
+    [Header("FireArm settings")]
     // this is just a normal bullet now but i will make it changable depending on what mag is inserted after a while
     [SerializeField]
     private GameObject bullet = null;
+
+
+
+
+    //standard values
+    private float fireInterval, timeSinceLastShot;
+    private Quaternion meleeAngle;
+
+    private bool isAttackAxisInUse = false;
+    private bool isAttacking = false;
 
     public void Equip()
     {
@@ -55,9 +73,24 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0)
             {
-                //should move the item
-                Quaternion angle = Quaternion.Euler(0f, 0f, -180f);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, fireRate * Time.fixedDeltaTime);
+                isAttacking = true;
+                for (int i = 0; i < meleeTargetAngles.Capacity; i++)
+                {
+                    print(meleeTargetAngles);
+                    if (transform.rotation == meleeTargetAngles[i])
+                    {
+                        print(transform.rotation);
+                        meleeAngle = meleeTargetAngles[i + 1];
+                    }
+                }
+            }
+            if (isAttacking)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, meleeAngle, fireRate * Time.fixedDeltaTime);
+                if (transform.rotation == meleeAngle)
+                {
+                    isAttacking = false;
+                }
             }
         }
     }
