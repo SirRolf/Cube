@@ -55,14 +55,11 @@ public class Use_Weapon : MonoBehaviour
         }
         if (isSemiAutomatic)
         {
-            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
+            if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
-                if (isAttackAxisInUse == false)
-                {
-                    Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
-                    timeSinceLastShot = 0;
-                    isAttackAxisInUse = true;
-                }
+                Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
+                timeSinceLastShot = 0;
+                isAttackAxisInUse = true;
             }
             if (Input.GetAxisRaw("Attack") == 0)
             {
@@ -71,18 +68,27 @@ public class Use_Weapon : MonoBehaviour
         }
         if (isMelee)
         {
-            if (Input.GetAxisRaw("Attack") > 0)
+            if (Input.GetAxisRaw("Attack") > 0 && isAttackAxisInUse == false)
             {
                 isAttacking = true;
                 for (int i = 0; i < meleeTargetAngles.Capacity; i++)
                 {
-                    print(meleeTargetAngles);
                     if (transform.rotation == meleeTargetAngles[i])
                     {
-                        print(transform.rotation);
-                        meleeAngle = meleeTargetAngles[i + 1];
+                        if (i + 1 >= meleeTargetAngles.Capacity)
+                        {
+                            meleeAngle = meleeTargetAngles[0];
+                        }
+                        else
+                        {
+                            meleeAngle = meleeTargetAngles[i + 1];
+                        }
                     }
                 }
+            }
+            if (Input.GetAxisRaw("Attack") == 0)
+            {
+                isAttackAxisInUse = false;
             }
             if (isAttacking)
             {
