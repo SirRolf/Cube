@@ -70,10 +70,12 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && isAttackAxisInUse == false)
             {
+                print("attack is called");
                 isAttacking = true;
                 for (int i = 0; i < meleeTargetAngles.Capacity; i++)
                 {
-                    if (transform.rotation == meleeTargetAngles[i])
+                    print("now checking what way to go");
+                    if (transform.localRotation == meleeTargetAngles[i])
                     {
                         if (i + 1 >= meleeTargetAngles.Capacity)
                         {
@@ -92,8 +94,9 @@ public class Use_Weapon : MonoBehaviour
             }
             if (isAttacking)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, meleeAngle, fireRate * Time.fixedDeltaTime);
-                if (transform.rotation == meleeAngle)
+                print("swinging now");
+                transform.localRotation = Quaternion.RotateTowards(transform.localRotation, meleeAngle, fireRate * Time.fixedDeltaTime);
+                if (transform.localRotation == meleeAngle)
                 {
                     isAttacking = false;
                 }
