@@ -72,6 +72,7 @@ public class Use_Weapon : MonoBehaviour
             {
                 print("attack is called");
                 isAttacking = true;
+                GetComponent<Collider2D>().enabled = true;
                 for (int i = 0; i < meleeTargetAngles.Capacity; i++)
                 {
                     print("now checking what way to go");
@@ -98,6 +99,7 @@ public class Use_Weapon : MonoBehaviour
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation, meleeAngle, fireRate * Time.fixedDeltaTime);
                 if (transform.localRotation == meleeAngle)
                 {
+                    GetComponent<Collider2D>().enabled = false;
                     isAttacking = false;
                 }
             }
