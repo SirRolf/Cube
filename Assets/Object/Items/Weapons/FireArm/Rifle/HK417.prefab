@@ -45,5 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMelee: 0
   isFullyAutomatic: 1
+  isSemiAutomatic: 0
   fireRate: 600
+  meleeTargetAngles: []
   bullet: {fileID: 6090606621590820857, guid: a249ece4ec7f785448a6713f82b18fb4, type: 3}
+  accuracy: 3

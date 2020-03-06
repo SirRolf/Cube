@@ -25,9 +25,15 @@ public class Use_Weapon : MonoBehaviour
     // this is just a normal bullet now but i will make it changable depending on what mag is inserted after a while
     [SerializeField]
     private GameObject bullet = null;
+    [SerializeField] // zero accuracy is 100% perfect shot
+    private float accuracy = 0;
 
 
-
+    /*
+ Vector3 rot = myTransform.rotation.eulerAngles;
+ rot = new Vector3(rot.x,rot.y+180,rot.z);
+ myTransform.rotation = Quaternion.Euler(rot);
+    */
 
     //standard values
     private float fireInterval, timeSinceLastShot;
@@ -49,7 +55,9 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
             {
-                Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
+                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
+                Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 timeSinceLastShot = 0;
             }
         }
@@ -57,7 +65,9 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
-                Instantiate(bullet, (Vector2)transform.position, Quaternion.identity);
+                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
+                Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 timeSinceLastShot = 0;
                 isAttackAxisInUse = true;
             }

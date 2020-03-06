@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6090606621590820862}
   - component: {fileID: 8895780922541408060}
   m_Layer: 0
-  m_Name: TracerRound
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,4 +92,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8ec5b5c79a097408457c7e2f4ff18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
+  multiplier: 10000
