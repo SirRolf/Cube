@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3995828976626896984}
   - component: {fileID: 765699851694964664}
   m_Layer: 0
-  m_Name: HK417
+  m_Name: HK416
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,3 +50,4 @@ MonoBehaviour:
   meleeTargetAngles: []
   bullet: {fileID: 6090606621590820857, guid: a249ece4ec7f785448a6713f82b18fb4, type: 3}
   accuracy: 3
+  ergonomics: 60

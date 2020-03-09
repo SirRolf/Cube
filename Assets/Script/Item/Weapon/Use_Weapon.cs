@@ -27,13 +27,10 @@ public class Use_Weapon : MonoBehaviour
     private GameObject bullet = null;
     [SerializeField] // zero accuracy is 100% perfect shot
     private float accuracy = 0;
+    [SerializeField] // zero ergonomics is perfect ergonomics
+    private float ergonomics = 0;
 
 
-    /*
- Vector3 rot = myTransform.rotation.eulerAngles;
- rot = new Vector3(rot.x,rot.y+180,rot.z);
- myTransform.rotation = Quaternion.Euler(rot);
-    */
 
     //standard values
     private float fireInterval, timeSinceLastShot;
@@ -56,8 +53,17 @@ public class Use_Weapon : MonoBehaviour
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
             {
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
-                Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
-                _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy + (100 + ergonomics) / 5, accuracy - (100 - ergonomics) / 5));
+                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                }
+                else
+                {
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                }
                 timeSinceLastShot = 0;
             }
         }
@@ -66,8 +72,17 @@ public class Use_Weapon : MonoBehaviour
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
-                Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
-                _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy + (100 + ergonomics) / 5, accuracy - (100 - ergonomics) / 5));
+                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                }
+                else
+                {
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                }
                 timeSinceLastShot = 0;
                 isAttackAxisInUse = true;
             }
