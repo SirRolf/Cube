@@ -27,13 +27,19 @@ public class Use_Weapon : MonoBehaviour
     private GameObject bullet = null;
     [SerializeField] // zero accuracy is 100% perfect shot
     private float accuracy = 0;
-    [SerializeField] // zero ergonomics is perfect ergonomics
+    [SerializeField] [Range(0.0f, 100.0f)] // Higher ergo means less problems
     private float ergonomics = 0;
+    [SerializeField] // The Recoil can't be higher then this
+    private float recoilMax = 0;
+    [SerializeField] // How fast recoil builds up
+    private float recoilGrowth = 0;
+    [SerializeField] // How fast recoil builds down
+    private float recoilRecovery = 0;
 
 
 
     //standard values
-    private float fireInterval, timeSinceLastShot;
+    private float fireInterval, timeSinceLastShot, recoilCurrent;
     private Quaternion meleeAngle;
 
     private bool isAttackAxisInUse = false;
@@ -55,16 +61,30 @@ public class Use_Weapon : MonoBehaviour
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
-
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy + (100 + ergonomics) / 5, accuracy - (100 - ergonomics) / 5));
+                    float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                    float offset = accuracy + recoilCurrent;
+                    print(offset);
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
+                if (recoilCurrent < recoilMax)
+                {
+                    recoilCurrent += recoilGrowth;
+                }
                 timeSinceLastShot = 0;
+            }
+            if (recoilCurrent > 0)
+            {
+                recoilCurrent -= recoilRecovery * Time.deltaTime;
+            }
+            else if (recoilCurrent != 0)
+            {
+                recoilCurrent = 0;
             }
         }
         if (isSemiAutomatic)
@@ -74,20 +94,33 @@ public class Use_Weapon : MonoBehaviour
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
-
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy + (100 + ergonomics) / 5, accuracy - (100 - ergonomics) / 5));
+                    float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(-accuracy, accuracy));
+                    float offset = accuracy + recoilCurrent;
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                }
+                if (recoilCurrent < recoilMax)
+                {
+                    recoilCurrent += recoilGrowth;
                 }
                 timeSinceLastShot = 0;
                 isAttackAxisInUse = true;
             }
             if (Input.GetAxisRaw("Attack") == 0)
             {
+                if (recoilCurrent > 0)
+                {
+                    recoilCurrent -= recoilRecovery * Time.deltaTime;
+                }
+                else if (recoilCurrent != 0)
+                {
+                    recoilCurrent = 0;
+                }
                 isAttackAxisInUse = false;
             }
         }

@@ -51,3 +51,6 @@ MonoBehaviour:
   bullet: {fileID: 6090606621590820857, guid: a249ece4ec7f785448a6713f82b18fb4, type: 3}
   accuracy: 3
   ergonomics: 60
+  recoilMax: 10
+  recoilGrowth: 2
+  recoilRecovery: 3
