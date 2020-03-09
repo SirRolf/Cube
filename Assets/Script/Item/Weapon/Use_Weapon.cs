@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +46,9 @@ public class Use_Weapon : MonoBehaviour
     private bool isAttackAxisInUse = false;
     private bool isAttacking = false;
 
+    //Delegates
+    public event Action Shoot;
+
     public void Equip()
     {
         fireInterval = 60 / fireRate;
@@ -58,18 +62,18 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
             {
+                Shoot();
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
                     float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
                     float offset = accuracy + recoilCurrent;
-                    print(offset);
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 if (recoilCurrent < recoilMax)
@@ -91,17 +95,18 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
+                Shoot();
                 var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
                     float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
                     float offset = accuracy + recoilCurrent;
-                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + Random.Range(offset, -offset));
+                    Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
                     _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
                 }
                 if (recoilCurrent < recoilMax)
@@ -128,12 +133,10 @@ public class Use_Weapon : MonoBehaviour
         {
             if (Input.GetAxisRaw("Attack") > 0 && isAttackAxisInUse == false)
             {
-                print("attack is called");
                 isAttacking = true;
                 GetComponent<Collider2D>().enabled = true;
                 for (int i = 0; i < meleeTargetAngles.Capacity; i++)
                 {
-                    print("now checking what way to go");
                     if (transform.localRotation == meleeTargetAngles[i])
                     {
                         if (i + 1 >= meleeTargetAngles.Capacity)
@@ -153,7 +156,6 @@ public class Use_Weapon : MonoBehaviour
             }
             if (isAttacking)
             {
-                print("swinging now");
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation, meleeAngle, fireRate * Time.fixedDeltaTime);
                 if (transform.localRotation == meleeAngle)
                 {
