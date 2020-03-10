@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    private Rigidbody2D mainRigid;
+    private Vector2 currentLocation = new Vector2(0,0);
 
     [SerializeField]
-    private float multiplier = 1;
+    private float speed = 1;
 
     void Start()
     {
-        mainRigid = this.GetComponent<Rigidbody2D>();
-        mainRigid.AddRelativeForce(Vector2.right * multiplier);
+        currentLocation = transform.position;
+        print(currentLocation);
     }
 
     void Update()
     {
-        //mainRigid.MovePosition((Vector2)transform.position + Vector2.right * multiplier * Time.deltaTime);
+        RaycastHit2D hit = Physics2D.Linecast(currentLocation, currentLocation + (Vector2)transform.right * speed);
+        currentLocation += (Vector2)transform.right * speed;
+        print(currentLocation);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "HighCover")
+            {
+                Destroy(gameObject);
+            }
+        }
+        Debug.DrawLine(currentLocation, currentLocation + (Vector2)transform.right * speed);
     }
 }

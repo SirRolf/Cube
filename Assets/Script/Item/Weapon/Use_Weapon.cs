@@ -63,18 +63,18 @@ public class Use_Weapon : MonoBehaviour
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval)
             {
                 Shoot();
-                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
+                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.parent.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
                     float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
                     Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
-                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                    _bullet.transform.rotation *= Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
                     float offset = accuracy + recoilCurrent;
                     Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
-                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                    _bullet.transform.rotation *= Quaternion.Euler(accuracyMisplacement);
                 }
                 if (recoilCurrent < recoilMax)
                 {
@@ -96,18 +96,18 @@ public class Use_Weapon : MonoBehaviour
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
                 Shoot();
-                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.rotation);
+                var _bullet = Instantiate(bullet, (Vector2)transform.position, transform.parent.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
                     float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
                     Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
-                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                    _bullet.transform.rotation *= Quaternion.Euler(accuracyMisplacement);
                 }
                 else
                 {
                     float offset = accuracy + recoilCurrent;
                     Vector3 accuracyMisplacement = new Vector3(_bullet.transform.rotation.x, _bullet.transform.rotation.y, _bullet.transform.rotation.z + UnityEngine.Random.Range(offset, -offset));
-                    _bullet.transform.rotation = Quaternion.Euler(accuracyMisplacement);
+                    _bullet.transform.rotation *= Quaternion.Euler(accuracyMisplacement);
                 }
                 if (recoilCurrent < recoilMax)
                 {

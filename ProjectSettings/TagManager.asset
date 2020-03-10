@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - HighCover
+  - LowCover
+  - Damagable
   layers:
   - Default
   - TransparentFX
