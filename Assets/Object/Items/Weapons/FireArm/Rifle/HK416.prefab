@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3053926967049487041}
   - component: {fileID: 968555499}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: HK416_flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

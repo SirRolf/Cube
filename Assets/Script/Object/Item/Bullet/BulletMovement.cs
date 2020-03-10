@@ -8,6 +8,8 @@ public class BulletMovement : MonoBehaviour
 
     [SerializeField]
     private float speed = 1;
+    [SerializeField]
+    private GameObject impact = null;
 
     void Start()
     {
@@ -25,6 +27,10 @@ public class BulletMovement : MonoBehaviour
         {
             if (hit.collider.tag == "HighCover")
             {
+                if (impact != null)
+                {
+                    Instantiate(impact, hit.point, transform.rotation);
+                }
                 Destroy(gameObject);
             }
         }
