@@ -14,15 +14,12 @@ public class BulletMovement : MonoBehaviour
     void Start()
     {
         currentLocation = transform.position;
-        print(currentLocation);
     }
 
     void Update()
     {
         RaycastHit2D hit = Physics2D.Linecast(currentLocation, currentLocation + (Vector2)transform.right * speed);
         currentLocation += (Vector2)transform.right * speed;
-        print(currentLocation);
-
         if (hit.collider != null)
         {
             if (hit.collider.tag == "HighCover")
@@ -34,6 +31,5 @@ public class BulletMovement : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        Debug.DrawLine(currentLocation, currentLocation + (Vector2)transform.right * speed);
     }
 }
