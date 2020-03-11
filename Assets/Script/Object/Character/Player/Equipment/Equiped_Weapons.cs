@@ -24,7 +24,6 @@ public class Equiped_Weapons : MonoBehaviour
     {
         if (weapons[equipedSlot] == null)
         {
-            print("no Weapon equiped");
             return;
         }
         for (int i = 1; i < 4; i++)

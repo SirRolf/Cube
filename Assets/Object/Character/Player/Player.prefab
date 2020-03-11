@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7634845351887458199}
   - component: {fileID: 6792049391508397564}
+  - component: {fileID: 309962328}
   m_Layer: 9
   m_Name: Equipment
   m_TagString: Untagged
@@ -44,9 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1595744ef0d24d4fa764b7367a49a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotUIElement: {fileID: 1050940660964577513, guid: 3d09bd4c3de9bd34b95e5cceba9fd909,
-    type: 3}
   backpackSlot: {fileID: 0}
+--- !u!114 &309962328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293758458870328873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b67b042e60cbe4da16bf5ea0ad1e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1371414692083192652
 GameObject:
   m_ObjectHideFlags: 0

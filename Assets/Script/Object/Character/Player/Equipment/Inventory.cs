@@ -4,25 +4,14 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    /*
-    [SerializeField]
-    private GameObject slotUIElement = null;
-    */
+    //avalable slots
     [SerializeField]
     private GameObject backpackSlot = null;
 
-    /*
-    private GameObject inventoryUI = null;
-    private GameObject backpackSlotUIElement = null;
-    */
+    private GameObject backpackSlotUI = null;
 
     void Start()
     {
-        /*
-        inventoryUI = GameObject.Find("InventoryUI");
-        backpackSlotUIElement = Instantiate(slotUIElement, transform.position, Quaternion.identity);
-        backpackSlotUIElement.transform.SetParent(inventoryUI.transform);
-        backpackSlotUIElement.GetComponent<RectTransform>().localPosition = new Vector3(-150, 400, 0);
-        */
+        backpackSlotUI = GameObject.Find("BackpackSlot");
     }
 }
