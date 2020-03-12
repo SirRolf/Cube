@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class Inventory : MonoBehaviour
             GameObject _slotUIElement = Instantiate(slotUIElement, transform.position, Quaternion.identity);
             _slotUIElement.transform.SetParent(_containerItemPanel.transform);
         }
+        slot.GetComponent<Image>().sprite = container.slotSprite;
     }
 
 }

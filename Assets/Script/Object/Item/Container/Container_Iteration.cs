@@ -16,11 +16,14 @@ public class Container_Iteration : ScriptableObject
     public int xSize;
     [HideInInspector]
     public int ySize;
+    [HideInInspector]
+    public Sprite slotSprite;
 
     void OnEnable()
     {
         name = prefab.name;
         xSize = prefab.xSize;
         ySize = prefab.ySize;
+        slotSprite = prefab.slotSprite;
     }
 }

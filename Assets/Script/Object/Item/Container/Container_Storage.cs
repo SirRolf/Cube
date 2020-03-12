@@ -7,6 +7,8 @@ public class Container_Storage : ScriptableObject
 {
     public new string name;
 
+    public Sprite slotSprite;
+
     public int xSize = 0;
     public int ySize = 0;
 
