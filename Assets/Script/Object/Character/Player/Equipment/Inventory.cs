@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     //avalable slots
-    [SerializeField]
-    private Container_Iteration backpackSlot = null;
+    public Container_Storage backpackSlot = null;
 
     private GameObject backpackSlotUI = null;
 
@@ -25,7 +24,7 @@ public class Inventory : MonoBehaviour
         Equip(backpackSlotUI, backpackSlot);
     }
 
-    public void Equip(GameObject slot, Container_Iteration container)
+    public void Equip(GameObject slot, Container_Storage container)
     {
         GameObject _containerItemPanel = Instantiate(containerItemPanel, transform.position, Quaternion.identity);
         _containerItemPanel.transform.SetParent(inventoryUI.transform);

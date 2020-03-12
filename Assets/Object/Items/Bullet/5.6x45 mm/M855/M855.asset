@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83dedef27a7776b4093b4c7b3fc76631, type: 3}
-  m_Name: Hazard4Patrol_Prefab
+  m_Script: {fileID: 11500000, guid: 1443470a7c62003409391c76f183024e, type: 3}
+  m_Name: M855
   m_EditorClassIdentifier: 
-  name: Hazard4 Patrol
-  slotSprite: {fileID: 21300000, guid: d77aa46977c718c45a79ff490bd75cf5, type: 3}
-  xSize: 5
-  ySize: 6
+  slotSprite: {fileID: 21300000, guid: d3a6e9b5d0713b946b8a963a3d96e54e, type: 3}
+  name: M855
+  speed: 100
+  impact: {fileID: 4696664470906662733, guid: 56d81366e43388d4683168674191b0cb, type: 3}

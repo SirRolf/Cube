@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory_Item : MonoBehaviour
+public class Inventory_Item : ScriptableObject
 {
-    [SerializeField]
-    private int xSize = 0;
-    private int ySize = 0;
-
-    [SerializeField]
-    private Sprite itemSprite = null;
+    public Sprite slotSprite;
+    public new string name;
 }
