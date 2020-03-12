@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory_Item : ScriptableObject
+public abstract class Object_Item : ScriptableObject
 {
     public Sprite slotSprite;
     public new string name;

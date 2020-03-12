@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class Item_Fetcher : MonoBehaviour
 {
-    private Container_Storage backpackSlot;
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        backpackSlot = GetComponentInChildren<Inventory>().backpackSlot;
-
-        var item = col.GetComponent<Item>();
-        if (item == true)
+        if (Input.GetAxisRaw("PickUp") != 0)
         {
-            backpackSlot.AddItem(item.item, 1);
-            Destroy(col.gameObject);
+            Container_Object _backpackItem = GetComponentInChildren<Inventory>().backpackItem;
+
+            var item = col.GetComponent<Item>();
+            if (item == true)
+            {
+                _backpackItem.AddItem(item.item, 1);
+                Destroy(col.gameObject);
+            }
         }
-    }
-    private void OnApplicationQuit()
-    {
-        backpackSlot = GetComponentInChildren<Inventory>().backpackSlot;
-        backpackSlot.ItemData.Clear();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1984399682422717891}
   - component: {fileID: 1984399682422717890}
   m_Layer: 5
-  m_Name: BackpackItemPanel
+  m_Name: panelUIElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

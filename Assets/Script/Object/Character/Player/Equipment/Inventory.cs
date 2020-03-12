@@ -6,37 +6,66 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     //avalable slots
-    public Container_Storage backpackSlot = null;
-
-    private GameObject backpackSlotUI = null;
+    public Container_Object backpackItem = null;
+    private GameObject backpackItemPanel = null;
+    private GameObject backpackSlot = null;
 
     [SerializeField]
-    private GameObject containerItemPanel = null;
+    private GameObject panelUIElement = null;
     [SerializeField]
     private GameObject slotUIElement = null;
 
-    private GameObject inventoryUI = null;
+    private GameObject inventoryPanel = null;
 
     void Start()
     {
-        backpackSlotUI = GameObject.Find("BackpackSlot");
-        inventoryUI = GameObject.Find("InventoryUI");
-        Equip(backpackSlotUI, backpackSlot);
+        backpackSlot = GameObject.Find("BackpackSlot");
+        inventoryPanel = GameObject.Find("inventoryPanel");
+        Equip(backpackSlot, backpackItem);
     }
 
-    public void Equip(GameObject slot, Container_Storage container)
+    public void Equip(GameObject containerSlot, Container_Object container)
     {
-        GameObject _containerItemPanel = Instantiate(containerItemPanel, transform.position, Quaternion.identity);
-        _containerItemPanel.transform.SetParent(inventoryUI.transform);
-        _containerItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(container.xSize * 100 + 20, container.ySize * 100 + 20);
-        _containerItemPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(300, -50);
+        GameObject _panelUIElement = Instantiate(panelUIElement, transform.position, Quaternion.identity);
+        _panelUIElement.transform.SetParent(inventoryPanel.transform);
+        _panelUIElement.GetComponent<RectTransform>().sizeDelta = new Vector2(container.xSize * 100 + 20, container.ySize * 100 + 20);
+        _panelUIElement.GetComponent<RectTransform>().anchoredPosition = new Vector2(300, -50);
+        _panelUIElement.name = container.type.ToString();
         int size = container.xSize * container.ySize;
         for (int i = 0; i < size; i++)
         {
             GameObject _slotUIElement = Instantiate(slotUIElement, transform.position, Quaternion.identity);
-            _slotUIElement.transform.SetParent(_containerItemPanel.transform);
+            _slotUIElement.transform.SetParent(_panelUIElement.transform);
+            _slotUIElement.name = slotUIElement.name;
         }
-        slot.GetComponent<Image>().sprite = container.slotSprite;
+        containerSlot.GetComponent<Image>().sprite = container.slotSprite;
+        backpackItemPanel = _panelUIElement;
+    }
+
+    private void Update()
+    {
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        List<GameObject> children = new List<GameObject>();
+        foreach (Transform child in backpackItemPanel.gameObject.transform)
+        {
+            children.Add(child.gameObject);
+        }
+        for (int i = 0; i < backpackItem.ItemData.Count; i++)
+        {
+            if (backpackItem.ItemData[i].item != null)
+            {
+                children[i].GetComponent<Image>().sprite = backpackItem.ItemData[i].item.slotSprite;
+            }
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        backpackItem.ItemData.Clear();
     }
 
 }

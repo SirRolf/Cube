@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ContainerType
+{
+    Backpack
+}
 [CreateAssetMenu(fileName = "NewContainer", menuName = "Object/Item/Container", order = 1)]
-public class Container_Storage : Inventory_Item
+public class Container_Object : Object_Item
 {
     public int xSize = 0;
     public int ySize = 0;
 
+    public ContainerType type;
+
     public List<ContainerSlot> ItemData = new List<ContainerSlot>();
-    public void AddItem(Inventory_Item _item, int _amount)
+    public void AddItem(Object_Item _item, int _amount)
     {
         bool hasItem = false;
         for (int i = 0; i < ItemData.Count; i++)
@@ -31,9 +37,9 @@ public class Container_Storage : Inventory_Item
 [System.Serializable]
 public class ContainerSlot
 {
-    public Inventory_Item item;
+    public Object_Item item;
     public int amount;
-    public ContainerSlot(Inventory_Item _item, int _amount)
+    public ContainerSlot(Object_Item _item, int _amount)
     {
         item = _item;
         amount = _amount;
