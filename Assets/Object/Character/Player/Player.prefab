@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1595744ef0d24d4fa764b7367a49a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpackSlot: {fileID: 0}
-  containerItemPanel: {fileID: 0}
-  slotUIElement: {fileID: 0}
+  backpackItem: {fileID: 11400000, guid: 5ba1b0a63be86b0469147f2c96b15297, type: 2}
+  panelUIElement: {fileID: 1984399682422717888, guid: 544dcbe1d6cd68a48a11f30b0ae56825,
+    type: 3}
+  slotUIElement: {fileID: 1050940660964577513, guid: 3d09bd4c3de9bd34b95e5cceba9fd909,
+    type: 3}
 --- !u!114 &309962328
 MonoBehaviour:
   m_ObjectHideFlags: 0

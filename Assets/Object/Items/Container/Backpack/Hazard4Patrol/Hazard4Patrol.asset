@@ -16,4 +16,5 @@ MonoBehaviour:
   name: Hazard4Patrol
   xSize: 5
   ySize: 6
+  type: 0
   ItemData: []
