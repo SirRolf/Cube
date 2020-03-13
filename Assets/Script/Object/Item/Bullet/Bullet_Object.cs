@@ -7,5 +7,13 @@ public class Bullet_Object : Object_Item
 {
     public float speed;
     public GameObject impact;
+    public GameObject projectile;
+
+    public GameObject getProjectile()
+    {
+        projectile.GetComponent<BulletMovement>().speed = speed;
+        projectile.GetComponent<BulletMovement>().impact = impact;
+        return projectile;
+    }
 
 }

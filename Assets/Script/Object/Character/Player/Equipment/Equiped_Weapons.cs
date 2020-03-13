@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Equiped_Weapons : MonoBehaviour
 {
-    public List<GameObject> weapons = new List<GameObject>();
+    public List<Weapon_Object> weapons = new List<Weapon_Object>();
 
     private int equipedSlot;
 
@@ -15,7 +15,7 @@ public class Equiped_Weapons : MonoBehaviour
             if (weapons[i] != null)
             {
                 equipedSlot = i;
-                weapons[equipedSlot].GetComponent<Use_Weapon>().Equip();
+                weapons[equipedSlot].Equip();
             }
         }
     }
@@ -33,15 +33,15 @@ public class Equiped_Weapons : MonoBehaviour
                 SwitchWeapon(i - 1);
             }
         }
-        weapons[equipedSlot].GetComponent<Use_Weapon>().Use();
+        weapons[equipedSlot].Use();
     }
 
-    public void ChangeWeapons(GameObject newWeapon, int slot)
+    /*public void ChangeWeapons(GameObject newWeapon, int slot)
     {
         var instantiationWeapon = Instantiate(newWeapon, new Vector2(0,0), Quaternion.identity);
         instantiationWeapon.transform.parent = gameObject.transform;
         weapons[slot] = instantiationWeapon;
-    }
+    }*/
 
     public void SwitchWeapon(int slot)
     {

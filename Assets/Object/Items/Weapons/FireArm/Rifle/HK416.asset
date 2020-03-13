@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c034dc33acb74429af93f100ed3f1e, type: 3}
+  m_Name: HK416
+  m_EditorClassIdentifier: 
+  slotSprite: {fileID: 0}
+  name: HK416
+  weaponType: 1
+  fireRate: 600
+  meleeTargetAngles: []
+  bullet_Type: {fileID: 11400000, guid: 4c2d0473352e70f45a0bef0b4881d339, type: 2}
+  accuracy: 3
+  ergonomics: 60
+  recoilMax: 10
+  recoilGrowth: 2
+  recoilRecovery: 3
+  flash: {fileID: 4343974355106402775, guid: 9beea6e6802ea3b42a3a923ae9cc8d3d, type: 3}

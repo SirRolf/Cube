@@ -6,10 +6,8 @@ public class BulletMovement : MonoBehaviour
 {
     private Vector2 currentLocation = new Vector2(0,0);
 
-    [SerializeField]
-    private float speed = 1;
-    [SerializeField]
-    private GameObject impact = null;
+    public float speed = 1;
+    public GameObject impact = null;
 
     void Start()
     {
