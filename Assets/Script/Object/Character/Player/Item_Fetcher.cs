@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class Item_Fetcher : MonoBehaviour
 {
+    Container_Object _backpackItem;
     private void OnTriggerStay2D(Collider2D col)
     {
+        _backpackItem = GetComponentInChildren<Inventory>().backpackItem;
         if (Input.GetAxisRaw("PickUp") != 0)
         {
-            Container_Object _backpackItem = GetComponentInChildren<Inventory>().backpackItem;
-
             var item = col.GetComponent<Item>();
             if (item == true)
             {
                 _backpackItem.AddItem(item.item, 1);
                 Destroy(col.gameObject);
+                _backpackItem.Save();
             }
+        }
+    }
+    // THIS SHOULD BE DIFFRENT, LOAD WHENEVER SOMTHING HAPPENS BUT I DON'T KNOW WHERE
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _backpackItem = GetComponentInChildren<Inventory>().backpackItem;
+            _backpackItem.Load();
         }
     }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotSprite: {fileID: 21300000, guid: d77aa46977c718c45a79ff490bd75cf5, type: 3}
   name: Hazard4Patrol
+  savePath: /Container/Hazard4Patrol.Save
   xSize: 5
   ySize: 6
   type: 0
