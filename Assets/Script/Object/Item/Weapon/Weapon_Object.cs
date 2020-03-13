@@ -96,6 +96,7 @@ public class Weapon_Object : Object_Item
             if (Input.GetAxisRaw("Attack") > 0 && timeSinceLastShot > fireInterval && isAttackAxisInUse == false)
             {
                 var _bullet = Instantiate(bullet_Type.getProjectile(), (Vector2)player.transform.position, player.transform.rotation);
+                Instantiate(flash, _bullet.transform.position, _bullet.transform.rotation);
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
                     float offset = accuracy + recoilCurrent + (100 + ergonomics) / 5;
