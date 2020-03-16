@@ -6,4 +6,6 @@ public abstract class Object_Item : ScriptableObject
 {
     public Sprite slotSprite;
     public new string name;
+    public int Id;
+    public bool isStackable;
 }

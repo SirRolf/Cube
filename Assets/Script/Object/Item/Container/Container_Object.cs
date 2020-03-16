@@ -32,6 +32,12 @@ public class Container_Object : Object_Item, ISerializationCallbackReceiver
     public List<ContainerSlot> ItemData = new List<ContainerSlot>();
     public void AddItem(Object_Item _item, int _amount)
     {
+        if (_item.isStackable == false)
+        {
+            ItemData.Add(new ContainerSlot(database.GetId[_item], _item, _amount));
+            return;
+        }
+
         for (int i = 0; i < ItemData.Count; i++)
         {
             if (ItemData[i].item == _item)
