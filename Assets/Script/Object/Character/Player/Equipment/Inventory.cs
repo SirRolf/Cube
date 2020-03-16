@@ -59,6 +59,7 @@ public class Inventory : MonoBehaviour
             if (backpackItem.ItemData[i].item != null)
             {
                 children[i].GetComponent<Image>().sprite = backpackItem.ItemData[i].item.slotSprite;
+                children[i].GetComponentInChildren<Text>().text = backpackItem.ItemData[i].amount.ToString();
             }
         }
     }
