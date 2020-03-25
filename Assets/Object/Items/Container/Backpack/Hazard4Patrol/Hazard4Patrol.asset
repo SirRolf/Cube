@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotSprite: {fileID: 21300000, guid: d77aa46977c718c45a79ff490bd75cf5, type: 3}
   name: Hazard4Patrol
-  Id: 0
+  Id: 1
   isStackable: 0
   savePath: /Container/Hazard4Patrol.Save
+  database: {fileID: 11400000, guid: 7f29693ec96c96a42bc6d86c44e8c70e, type: 2}
   xSize: 5
   ySize: 6
   type: 0
-  ItemData: []
+  ItemData:
+    Items: []

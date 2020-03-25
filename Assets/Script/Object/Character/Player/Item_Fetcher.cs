@@ -10,10 +10,10 @@ public class Item_Fetcher : MonoBehaviour
         _backpackItem = GetComponentInChildren<Inventory>().backpackItem;
         if (Input.GetAxisRaw("PickUp") != 0)
         {
-            var item = col.GetComponent<Item>();
+            var item = col.GetComponent<GroundItem>();
             if (item == true)
             {
-                _backpackItem.AddItem(item.item, 1);
+                _backpackItem.AddItem(new Item(item.item), 1);
                 Destroy(col.gameObject);
                 _backpackItem.Save();
             }

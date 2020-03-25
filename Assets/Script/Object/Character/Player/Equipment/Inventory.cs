@@ -54,19 +54,26 @@ public class Inventory : MonoBehaviour
         {
             children.Add(child.gameObject);
         }
-        for (int i = 0; i < backpackItem.ItemData.Count; i++)
+        for (int i = 0; i < backpackItem.ItemData.Items.Count; i++)
         {
-            if (backpackItem.ItemData[i].item != null)
+            if (backpackItem.ItemData.Items[i] != null)
             {
-                children[i].GetComponent<Image>().sprite = backpackItem.ItemData[i].item.slotSprite;
-                children[i].GetComponentInChildren<Text>().text = backpackItem.ItemData[i].amount.ToString();
+                children[i].transform.GetChild(1).GetComponent<Image>().sprite = backpackItem.database.GetItem[backpackItem.ItemData.Items[i].item.Id].slotSprite;
+                if (backpackItem.ItemData.Items[i].amount == 1)
+                {
+                    children[i].GetComponentInChildren<Text>().text = "";
+                }
+                else
+                {
+                    children[i].GetComponentInChildren<Text>().text = backpackItem.ItemData.Items[i].amount.ToString();
+                }
             }
         }
     }
 
     private void OnApplicationQuit()
     {
-        backpackItem.ItemData.Clear();
+        backpackItem.ItemData.Items.Clear();
     }
 
 }

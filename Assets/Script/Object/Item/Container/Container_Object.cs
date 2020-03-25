@@ -1,94 +1,83 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public enum ContainerType
 {
     Backpack
 }
 [CreateAssetMenu(fileName = "NewContainer", menuName = "Object/Item/Container", order = 1)]
-public class Container_Object : Object_Item, ISerializationCallbackReceiver
+public class Container_Object : Object_Item
 {
 
     public string savePath;
-    private ItemDatabase_Object database;
+    public ItemDatabase_Object database;
     public int xSize = 0;
     public int ySize = 0;
 
     public ContainerType type;
 
-    private void OnEnable()
-    {
-#if UNITY_EDITOR
-        database = (ItemDatabase_Object)AssetDatabase.LoadAssetAtPath("Assets/Resources/Database.asset", typeof(ItemDatabase_Object));
-#else
-        database = Resources.Load<ItemDatabase_Object>("Database");
-#endif    
-    }
-
-    public List<ContainerSlot> ItemData = new List<ContainerSlot>();
-    public void AddItem(Object_Item _item, int _amount)
+    public Container ItemData;
+    public void AddItem(Item _item, int _amount)
     {
         if (_item.isStackable == false)
         {
-            ItemData.Add(new ContainerSlot(database.GetId[_item], _item, _amount));
+            ItemData.Items.Add(new ContainerSlot(_item.Id, _item, _amount));
+            Debug.Log("Un stackable");
             return;
         }
 
-        for (int i = 0; i < ItemData.Count; i++)
+        for (int i = 0; i < ItemData.Items.Count; i++)
         {
-            if (ItemData[i].item == _item)
+            if (ItemData.Items[i].item.Id == _item.Id)
             {
-                ItemData[i].AddAmount(_amount);
+                ItemData.Items[i].AddAmount(_amount);
                 return;
             }
         }
-        ItemData.Add(new ContainerSlot(database.GetId[_item], _item, _amount));
+        ItemData.Items.Add(new ContainerSlot(_item.Id, _item, _amount));
     }
 
+    [ContextMenu("Save")]
     public void Save()
     {
-        string saveData = JsonUtility.ToJson(this, true);
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePath));
-        bf.Serialize(file, saveData);
-        file.Close();
+        IFormatter formatter = new BinaryFormatter();
+        Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
+        formatter.Serialize(stream, ItemData);
+        stream.Close();
     }
 
+    [ContextMenu("Load")]
     public void Load()
     {
-        if(File.Exists(string.Concat(Application.persistentDataPath, savePath)))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePath), FileMode.Open);
-            JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this);
-            file.Close();
-        }
+        IFormatter formatter = new BinaryFormatter();
+        Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
+        ItemData = (Container)formatter.Deserialize(stream);
+        stream.Close();
     }
 
-    public void OnAfterDeserialize()
+    [ContextMenu("Clear")]
+    public void Clear()
     {
-        for (int i = 0; i < ItemData.Count; i++)
-        {
-            ItemData[i].item = database.GetItem[ItemData[i].ID];
-        }
+        ItemData = new Container();
     }
+}
 
-    public void OnBeforeSerialize()
-    {
-    }
+[System.Serializable]
+public class Container
+{
+    public List<ContainerSlot> Items = new List<ContainerSlot>();
 }
 
 [System.Serializable]
 public class ContainerSlot
 {
     public int ID;
-    public Object_Item item;
+    public Item item;
     public int amount;
-    public ContainerSlot(int _id, Object_Item _item, int _amount)
+    public ContainerSlot(int _id, Item _item, int _amount)
     {
         ID = _id;
         item = _item;
